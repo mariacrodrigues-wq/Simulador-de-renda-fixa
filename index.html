@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Simulador de Renda Fixa — Didático</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Simulador de Investimentos de Renda Fixa</h1>
+  <p class="subtitle">Interativo — aula de Matemática Financeira (estilo didático)</p>
+</header>
+
+<main class="container">
+  <section class="inputs">
+    <h2>Entradas</h2>
+    <div class="grid">
+      <label>Principal (R$)<input id="principal" type="number" value="10000" min="0"></label>
+      <label>Aporte mensal (R$)<input id="monthly" type="number" value="200" min="0"></label>
+      <label>Prazo (meses)<input id="months" type="number" value="36" min="1"></label>
+      <label>Inflação anual esperada (%)<input id="inflation" type="number" value="4.0" step="0.01"></label>
+      <label>CDI anual (%)<input id="cdi" type="number" value="13.15" step="0.01"></label>
+      <label>CDB anual nominal (%)<input id="cdb_nom" type="number" value="14.0" step="0.01"></label>
+      <label>CDB (% do CDI) (0 se não usar)<input id="cdb_pct_cdi" type="number" value="0" step="0.01" min="0"></label>
+      <label>LCI/LCA anual (%)<input id="lci" type="number" value="9.0" step="0.01"></label>
+      <label>Tesouro Selic anual (%)<input id="selic" type="number" value="13.75" step="0.01"></label>
+      <label>Poupança anual (%)<input id="poupanca" type="number" value="6.17" step="0.01"></label>
+      <label>Tesouro IPCA+ (real anual %) <input id="ipca_real" type="number" value="3.0" step="0.01"></label>
+      <label>IPCA anual (%) <input id="ipca" type="number" value="4.0" step="0.01"></label>
+    </div>
+    <div class="actions">
+      <button id="calc">Calcular</button>
+      <button id="reset">Redefinir padrão</button>
+    </div>
+    <p class="note">Obs: IOF é aplicado para resgates em até 30 dias. IR segue tabela regressiva padrão.</p>
+  </section>
+
+  <section class="results">
+    <h2>Resultados</h2>
+    <div id="table-wrap">
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th>Instrumento</th><th>Taxa anual (%)</th><th>Valor Futuro (R$)</th><th>Total Contribuído (R$)</th><th>Lucro Bruto (R$)</th><th>IOF (R$)</th><th>IR (%)</th><th>IR (R$)</th><th>Lucro Líquido (R$)</th><th>Lucro Real (R$)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <h3>Comparação gráfica (lucro líquido)</h3>
+    <div id="chart" role="img" aria-label="Gráfico comparativo"></div>
+  </section>
+
+  <section class="explain">
+    <h2>Como funciona (resumo)</h2>
+    <ul>
+      <li>Capitalização: calculamos com capitalização mensal a partir da taxa anual informada.</li>
+      <li>Contribuições mensais são assumidas no final de cada mês.</li>
+      <li>IR é aplicado sobre o rendimento bruto segundo a tabela regressiva (até 180 dias → 22.5%, 181–360 → 20%, 361–720 → 17.5%, >720 → 15%).</li>
+      <li>IOF é aplicado somente se o prazo for menor que 30 dias, seguindo a tabela regressiva (fonte: orientação prática de mercado).</li>
+      <li>Tesouro IPCA+: taxa real fornecida pelo usuário; taxa nominal calculada como (1+real)*(1+ipca)-1.</li>
+    </ul>
+    <p class="sources">Fontes: tabela IOF e IR usadas como referência (ex.: bancos e guias financeiros).</p>
+  </section>
+</main>
+
+<footer>
+  <small>Gerado por simulador didático — abra o arquivo localmente no navegador. Sem bibliotecas externas.</small>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
